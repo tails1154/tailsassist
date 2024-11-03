@@ -17,6 +17,10 @@ tv=False
 tvname="TV"
 tvtype="TV"
 tvip="TV"
+headers = {
+	'User-Agent': '(tails1154-assist, https://github.com/tails1154/tailsassist)',
+	'Accept': 'application/json'
+	}
 print("Loaded modules!")
 print("Loading integrations")
 f = open("integrations.json", "r")
@@ -185,9 +189,10 @@ def assist(text):
 		ttsplay("You can say addition to do addition")
 		ttsplay("You can also say date and I will give you the date and time.")
 		ttsplay("You can also say 'tell me a joke' and I will tell you a joke from the jokeAPI.")
-		ttsplay("If configured properly, you can toggle power on your tv by saying 'Power <tvname>' and replace tvname with the tvname in integrations.json.")
-		ttsplay("If configured properly, you can also use your voice as a tv remote by saying '<tvname> remote' and replace tvname with the tvname in integrations.json")
-		ttsplay("If configured properly, you can also search with your voice with your tv by saying 'search <tvname>' and replace tvname with the tvname in integrations.json")
+		ttsplay("If configured properly, you can toggle power on your tv by saying 'Power tvname' and replace tvname with the tvname in integrations dot json.")
+		ttsplay("If configured properly, you can also use your voice as a tv remote by saying 'tvname remote' and replace tvname with the tvname in integrations dot json")
+		ttsplay("If configured properly, you can also search with your voice with your tv by saying 'search tvname' and replace tvname with the tvname in integrations dot json")
+		ttsplay("If configured properly, you can also start youtube (if installed) on your tv by saying 'youtube tvname' and replace tvname with the tvname in integrations dot json")
 		ttsplay("Thats all!")
 	elif text == "power " + tvname.lower():
 		if tv:
@@ -226,7 +231,20 @@ def assist(text):
 				ttsplay("Could not understand what you said")
 		else:
 			ttsplay("Sorry, your tv is not set up in integrations.json")
-
+	elif text == "youtube " + tvname.lower():
+		if tv:
+			ttsplay("Starting youtube on your tv")
+			requests.post("http://" + tvip + ":8060/launch/837")
+	elif text == "shorten link":
+		ttsplay("Would you like to shorten a link?")
+		query=input()
+		if query:
+			if query.lower() == "yes":
+				ttsplay("TODO: Add link shortening thingy")
+			elif query.lower() == "no":
+				ttsplay("Ok. I won't shorten a link for you.")
+			else:
+				ttsplay("I could not understand what you said. Please start from the beginning")
 	else:
 		ttsplay("I Could not understand that.")
 
@@ -267,10 +285,8 @@ def loop():
 				active=False
 				awake=False
 		elif sphinx == "hey Bob":
+			ttsplay("Ready")
 			awake=True
-			pygame.mixer.music.unload()
-			pygame.mixer.music.load("audio/wakeup.mp3", "mp3")
-			pygame.mixer.music.play()
 			print("Awake")
 			individual_thread = threading.Thread(target=sleeptimer)
 			individual_thread.start()
