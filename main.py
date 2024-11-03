@@ -57,12 +57,12 @@ def ttsplay(text):
 
 def input():
 	print("Wait for input")
-		try:
-			return r.recognize_google(audio)
-		except sr.UnknownValueError:
-    		print("Google speech could not understand audio")
-		except sr.RequestError as e:
-    		print("Google speech error; {0}".format(e))
+	try:
+		return r.recognize_google(audio)
+	except sr.UnknownValueError:
+		print("Google speech could not understand audio")
+	except sr.RequestError as e:
+		print("Google speech error; {0}".format(e))
 
 
 
@@ -71,11 +71,11 @@ def input():
 
 
 def assist(text):
-	if text == "add":
+	if text == "addition":
 		ttsplay("Enter number 1 to add");
 		with sr.Microphone() as source:
-    		print("Say something!")
-    		audio = r.listen(source)
+			print("Say something!")
+			audio = r.listen(source)
 
 		pygame.mixer.music.unload()
 		pygame.mixer.music.load("audio/wakeup.mp3", "mp3")
