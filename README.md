@@ -13,3 +13,4 @@ tails1154 assist is a microphone text to speech assistant like google assistant!
 
 ## Supported devices
 the only supported device is the roku tv. (tested on a tcl roku tv) if you want to add more, feel free to make a Pull Request!
+also, you can NOT add more than one type of device (there is only one right now)
