@@ -230,6 +230,11 @@ def assist(text):
 			requests.post("http://" + tvip + ":8060/launch/837")
 	elif text == "never mind":
 		ttsplay("Sleep")
+	elif text == "play music":
+		ttsplay("playing song.mp3")
+		pygame.mixer.music.unload()
+		pygame.mixer.music.load("song.mp3", "mp3")
+		pygame.mixer.music.play()
 	else:
 		ttsplay("I Could not understand that.")
 
