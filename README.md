@@ -9,6 +9,9 @@ tails1154 assist is a microphone text to speech assistant like google assistant!
 3. finally, run main.py (`python3 main.py`)
    If you need any help, feel free to open an Issue
 
+## how to actually use this (how did I forget this lol)
+just say "hey bob", "ok bob", or just "bob" (this one usually does not work for me)
+
 
 
 ## Supported devices
