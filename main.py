@@ -52,13 +52,6 @@ def sleeptimer():
 	global awake
 	print(active)
 	print(awake)
-	time.sleep(100)
-	if active == False:
-		pygame.mixer.music.unload()
-		pygame.mixer.music.load("audio/sleep.mp3", "mp3")
-		pygame.mixer.music.play()
-		print("Sleep")
-		awake = False
 
 
 
@@ -192,7 +185,7 @@ def assist(text):
 		ttsplay("If configured properly, you can toggle power on your tv by saying 'Power tvname' and replace tvname with the tvname in integrations dot json.")
 		ttsplay("If configured properly, you can also use your voice as a tv remote by saying 'tvname remote' and replace tvname with the tvname in integrations dot json")
 		ttsplay("If configured properly, you can also search with your voice with your tv by saying 'search tvname' and replace tvname with the tvname in integrations dot json")
-		ttsplay("If configured properly, you can also start youtube (if installed) on your tv by saying 'youtube tvname' and replace tvname with the tvname in integrations dot json")
+		ttsplay("If configured properly, you can also start youtube (if installed) on your tv by saying 'start youtube on tvname' and replace tvname with the tvname in integrations dot json")
 		ttsplay("Thats all!")
 	elif text == "power " + tvname.lower():
 		if tv:
@@ -231,20 +224,12 @@ def assist(text):
 				ttsplay("Could not understand what you said")
 		else:
 			ttsplay("Sorry, your tv is not set up in integrations.json")
-	elif text == "youtube " + tvname.lower():
+	elif text == "start youtube on " + tvname.lower():
 		if tv:
 			ttsplay("Starting youtube on your tv")
 			requests.post("http://" + tvip + ":8060/launch/837")
-	elif text == "shorten link":
-		ttsplay("Would you like to shorten a link?")
-		query=input()
-		if query:
-			if query.lower() == "yes":
-				ttsplay("TODO: Add link shortening thingy")
-			elif query.lower() == "no":
-				ttsplay("Ok. I won't shorten a link for you.")
-			else:
-				ttsplay("I could not understand what you said. Please start from the beginning")
+	elif text == "never mind":
+		ttsplay("Sleep")
 	else:
 		ttsplay("I Could not understand that.")
 
@@ -284,8 +269,8 @@ def loop():
 				assist(sphinx)
 				active=False
 				awake=False
-		elif sphinx == "hey Bob":
-			ttsplay("Ready")
+		elif sphinx == "hey Bob" or sphinx == "Bob" or sphinx == "okay Bob":
+			ttsplay("Awake")
 			awake=True
 			print("Awake")
 			individual_thread = threading.Thread(target=sleeptimer)
